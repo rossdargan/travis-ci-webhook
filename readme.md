@@ -6,6 +6,7 @@ instructions to follow, but the brief gist is run like this:
 docker run -d \
   -p 7777:7777 \
   -v /$(PWD)/scripts:/usr/src/app/scripts \
+  -e WEBHOOK_PATH=/travis \
   --name travis-ci-webhook \
 rossdargan/travis-ci-webhook
 
