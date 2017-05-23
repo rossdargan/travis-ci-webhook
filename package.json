@@ -1,0 +1,13 @@
+{
+  "name": "travis-ci-webhook",
+  "version": "1.0.0",
+  "description": "Travis CI Webhook Handler/Receiver",
+  "main": "index.js",
+  "repository": "https://github.com/rossdargan/travis-ci-webhook",
+  "author": "Ross Dargan",
+  "license": "MIT",
+  "dependencies": {
+    "travisci-webhook-handler": "2.0.0",
+    "file-exists": "^3.0.2"
+  }
+}
