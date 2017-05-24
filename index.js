@@ -19,11 +19,12 @@ handler.on('error', function (err) {
  
 handler.on('success', function (event) {
   const payload = event.payload;
-  console.log('Build %s success for %s branch %s',
+  console.log('Build %s success for %s branch %s. This is of type %s',
     event.payload.number,
     event.payload.repository.name,
-    event.payload.branch)
-  const script = hooks[`${payload.repository.owner_name}/${payload.repository.name}/${payload.branch}`]
+    event.payload.branch,
+    event.payload.type)
+  const script = hooks[`${payload.repository.owner_name}/${payload.repository.name}/${payload.branch}/${payload.type}`]
   if(script){
     const scriptsPath = pathJoin(__dirname, './scripts/')
     let cmd, args;
