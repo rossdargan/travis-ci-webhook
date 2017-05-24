@@ -1,17 +1,34 @@
-##Travis CI Webhook
-This is a docker container that allows you to process webhook calls from travis.
+## Travis CI Webhook
+This is a docker container that will validate webhook calls from Travis, and call a script if the build succeeded.
 
-instructions to follow, but the brief gist is run like this:
-
+# Instructions
+To run the container execute the following:
+```
 docker run -d \
   -p 7777:7777 \
   -v /$(PWD)/scripts:/usr/src/app/scripts \
   -e WEBHOOK_PATH=/travis \
   --name travis-ci-webhook \
 rossdargan/travis-ci-webhook
+```
 
+Alternatively you can use docker compose as follows:
+```
+ travis:
+  image: "rossdargan/travis-ci-webhook"
+  container_name: travis
+  restart: always
+  volumes:
+   - "/travis/scripts:/usr/src/app/scripts"
+  environment:
+    - WEBHOOK_PATH=/travis
+  ports:
+   - "7777:7777"
+```
 
-In the scripts volume have a file like this:-
+# Scripts
+
+The container will execute a file called index.js in the scripts folder. This is used to map between the builds you have in travis and the local script you would like to execute. You will need to add this file your self into the scripts volume speified when you run the container:
 
 ```
 'use strict'
@@ -22,3 +39,15 @@ module.exports = {
 ```
 
 Note replace the `rossdargan/hass-config` bit with your travis username and branch - you can add multiple ones.
+
+Finally add a test.sh batch file - here is the one I use
+
+```
+#!/bin/bash
+echo Writing Update for $1
+
+touch /usr/src/app/scripts/update-$1.txt
+```
+
+# With Thanks
+Thanks to [vangie](https://github.com/vangie/travis-ci-webhook) - his docker container inspired this one, I just never could quite gets his working... still not sure why. This one is lighter weight as it doesn't hook into docker like his does - his might be a better option if you want to restart docker :)
