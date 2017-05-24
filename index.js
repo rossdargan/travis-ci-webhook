@@ -23,7 +23,7 @@ handler.on('success', function (event) {
     event.payload.number,
     event.payload.repository.name,
     event.payload.branch)
-  const script = hooks[`${payload.repository.owner_name}/${payload.repository.name}`]
+  const script = hooks[`${payload.repository.owner_name}/${payload.repository.name}/${payload.branch}`]
   if(script){
     const scriptsPath = pathJoin(__dirname, './scripts/')
     let cmd, args;
