@@ -26,6 +26,21 @@ Alternatively you can use docker compose as follows:
    - "7777:7777"
 ```
 
+The Environment path indicates where node will expect the webhook to call (http://localhost:7777/travis for example). This is useful if you are placing this behind a reverse proxy as you can specify what path to listen on.
+
+Here is my nginx config:
+
+```
+  location /travis {
+    proxy_pass http://192.168.1.53:7777;
+    proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto https;
+  }
+```
+
+I **strongly** recommend running behind a proxy with ssl configured on it.
+
 # Scripts
 
 The container will execute a file called index.js in the scripts folder. This is used to map between the builds you have in travis and the local script you would like to execute. You will need to add this file your self into the scripts volume speified when you run the container:
