@@ -49,11 +49,11 @@ The container will execute a file called index.js in the scripts folder. This is
 'use strict'
 
 module.exports = {
-  'rossdargan/hass-config': 'test.sh hass', // namespace/repo_name : script <args>
+  'rossdargan/hass-config/master': 'test.sh hass', // namespace/repo_name : script <args>
 }
 ```
 
-Note replace the `rossdargan/hass-config` bit with your travis username and branch - you can add multiple ones.
+Note replace the `rossdargan/hass-config/master` bit with your travis username, project and branch - you can add multiple ones.
 
 Finally add a test.sh batch file - here is the one I use
 
